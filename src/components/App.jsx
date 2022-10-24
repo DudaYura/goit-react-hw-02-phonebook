@@ -64,12 +64,16 @@ export class App extends Component {
       <Container>
         <h1>Phoneboock</h1>
         <ContactForm onSubmit={this.addNewContact} />
-        <Filter value={filter} onChangeFilter={this.changeFilter} />
-        <h2>Contacts</h2>
-        <ContactList
-          contacts={this.getFilteredContacts()}
-          onDeleteContact={this.deleteContact}
-        />
+        {this.state.contacts.length ? (
+          <>
+            <Filter value={filter} onChangeFilter={this.changeFilter} />
+            <h2>Contacts</h2>
+            <ContactList
+              contacts={this.getFilteredContacts()}
+              onDeleteContact={this.deleteContact}
+            />
+          </>) :
+          (<p>Sorry no contact</p>)}
       </Container>
     );
   }
