@@ -17,22 +17,25 @@ export class App extends Component {
   };
 
   addNewContact = ({ name, number }) => {
+    const { contacts } = this.state;
+
     const newContact = {
       id: nanoid(),
       name,
       number,
     };
 
-    this.setState(({ contacts }) => ({
-      contacts: [newContact, ...contacts],
+    if (
+      contacts.find(
+        contact => contact.name.toLowerCase() === name.toLowerCase()
+      )
+    ) {
+      alert(`${name} is already in contacts.`);
+      return;
+    }
+  
+    this.setState(({ contacts }) => ({ contacts: [newContact, ...contacts],
     }));
-
-    this.state.contacts.forEach(contact => {
-      if (contact.name.toLowerCase() === newContact.name.toLowerCase()) {
-        alert(`${newContact.name} is already in contacts`);
-        this.deleteContact(newContact.id);
-      }
-    });
   };
 
   changeFilter = event => {
